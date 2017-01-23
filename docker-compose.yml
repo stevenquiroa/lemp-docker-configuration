@@ -1,0 +1,37 @@
+ version: '2'
+ services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - "./.data/db:/var/lib/mysql"
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: warava
+       MYSQL_DATABASE: housebook
+       MYSQL_USER: warava
+       MYSQL_PASSWORD: warava
+     ports:
+       - "33060:3306"
+   
+   php:
+     build: .
+     #image: php:7-fpm
+     volumes:
+       - ./code:/code
+       - ./.log:/var/log/nginx
+     links:
+       - db
+     environment:
+       - "DB_PORT=3306" 
+       - "DB_HOST=db"
+
+   web:
+     image: nginx:latest
+     ports:
+       - "9090:80"
+     volumes:
+       - ./code:/code
+       - ./default.conf:/etc/nginx/conf.d/default.conf
+       - ./.log:/var/log/nginx
+     links:
+       - php
