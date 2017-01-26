@@ -15,3 +15,4 @@ Pasos si es la primera vez:
 Nota: Colocar las credenciales correctas a la base de datos (Según está en el docker-compose.yml)
 Nota: Colocar los puertos disponibles (web:9090 y db:33060 por default)
 Nota: Si surgen problemas de permisos por favor correr este comando: sudo chown :www-data -R code
+Nota: No colocarle al usuario root como contraseña root, tampoco solo usar numeros para una contraseña, usuario o base de datos 
